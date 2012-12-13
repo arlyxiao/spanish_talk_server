@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  validates :name, 
+  validates :username, 
     :presence => true,
     :length => 2..20,
     :uniqueness => { :case_sensitive => false },
@@ -14,4 +14,14 @@ class User < ActiveRecord::Base
     :presence => { :on => :create },
     :confirmation => true,
     :length => { :in => 4..32 }
+
+
+  def self.check_login(email, password)
+    user = User.where(:email => email, :password => password).first
+    return false if user.nil?
+    return user
+  end
+
+
+  include Question::UserMethods
 end

@@ -1,15 +1,28 @@
 class UsersController < ApplicationController
-  before_filter :pre_load
-  def pre_load
-    render :layout => false
-  end
-
+  layout :false
 
   def create
-    User.create(
-      :username => params[:username],
-      :email => params[:email],
-      :password => params[:password]
-    )
+    user = User.create(params[:user])
+
+    p '-----------------'
+    p params[:user]
+    p '--------------'
+
+    # User.create(
+    #   :username => 'aaa',
+    #   :email => 'bbb@gmail.com',
+    #   :password => 'cccccc'
+    # )
+
+    render :json => {:user_id => user.id, :username => user.username}
   end
+
+
+  def do_login
+    user = User.check_login(params[:email], params[:password])
+  
+    return render :json => {:user_id => user.id, :username => user.username} if user
+
+    render :status => :forbidden
+   end
 end
