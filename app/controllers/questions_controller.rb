@@ -2,12 +2,12 @@ class QuestionsController < ApplicationController
   layout :false
 
   def create
-    Question.create(params[:question])
+    question = Question.create(params[:question])
 
     p '-----------------'
     p params[:question]
     p '--------------'
 
-    render :json => {}
+    render :json => {:question_id => question.id}
   end
 end

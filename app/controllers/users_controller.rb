@@ -14,7 +14,8 @@ class UsersController < ApplicationController
     #   :password => 'cccccc'
     # )
 
-    render :json => {:user_id => user.id, :username => user.username}
+    return render :json => {:user_id => user.id, :username => user.username} if user.id
+    return render :nothing => true, :status => 404
   end
 
 
@@ -22,7 +23,6 @@ class UsersController < ApplicationController
     user = User.check_login(params[:email], params[:password])
   
     return render :json => {:user_id => user.id, :username => user.username} if user
-
-    render :status => :forbidden
+    return render :nothing => true, :status => 404
    end
 end
