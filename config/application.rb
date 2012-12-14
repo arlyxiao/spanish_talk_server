@@ -44,5 +44,8 @@ module SpanishTalkServer
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
+
+    # 加载当前工程 lib
+    config.autoload_paths += Dir["#{Rails.root}/lib/**/"]
   end
 end

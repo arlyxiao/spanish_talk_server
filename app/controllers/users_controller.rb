@@ -1,5 +1,4 @@
 class UsersController < ApplicationController
-  layout :false
 
   def create
     user = User.create(params[:user])
@@ -8,21 +7,39 @@ class UsersController < ApplicationController
     p params[:user]
     p '--------------'
 
-    # User.create(
-    #   :username => 'aaa',
-    #   :email => 'bbb@gmail.com',
-    #   :password => 'cccccc'
-    # )
 
     return render :json => {:user_id => user.id, :username => user.username} if user.id
     return render :nothing => true, :status => 404
   end
 
 
+  def new
+  end
+
+
   def do_login
     user = User.check_login(params[:user])
-  
-    return render :json => {:user_id => user.id, :username => user.username} if user
-    return render :nothing => true, :status => 404
-   end
+    session[:user_id] = user.id if user
+
+
+    if is_from_android?
+      return render :json => {:user_id => user.id, :username => user.username} if user
+      return render :nothing => true, :status => 404
+    else
+      return render :text => 'eeee'
+    end
+
+  end
+
+
+  def show
+    render :text => current_user.id
+  end
+
+
+  def destroy
+    session[:user_id] = nil
+    return render :nothing => true, :status => 404 
+  end
+
 end
