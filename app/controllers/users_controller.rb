@@ -18,6 +18,7 @@ class UsersController < ApplicationController
 
 
   def do_login
+    session[:user_id] = 0
     user = User.check_login(params[:user])
     session[:user_id] = user.id if user
 
@@ -26,7 +27,7 @@ class UsersController < ApplicationController
       return render :json => {:user_id => user.id, :username => user.username} if user
       return render :nothing => true, :status => 404
     else
-      return render :text => 'eeee'
+      return render :text => session[:user_id]
     end
 
   end
