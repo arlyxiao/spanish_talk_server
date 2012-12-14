@@ -20,7 +20,7 @@ class UsersController < ApplicationController
 
 
   def do_login
-    user = User.check_login(params[:email], params[:password])
+    user = User.check_login(params[:user])
   
     return render :json => {:user_id => user.id, :username => user.username} if user
     return render :nothing => true, :status => 404

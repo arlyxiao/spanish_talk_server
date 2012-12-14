@@ -16,8 +16,8 @@ class User < ActiveRecord::Base
     :length => { :in => 4..32 }
 
 
-  def self.check_login(email, password)
-    user = User.where(:email => email, :password => password).first
+  def self.check_login(user)
+    user = User.where(:email => user[:email], :password => user[:password]).first
     return false if user.nil?
     return user
   end
