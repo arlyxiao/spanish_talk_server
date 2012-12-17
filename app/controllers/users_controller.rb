@@ -1,15 +1,17 @@
 class UsersController < ApplicationController
 
   def create
-    user = User.create(params[:user])
-    session[:user_id] = user.id if user
+    @user = User.create(params[:user])
+    session[:user_id] = @user.id if @user
+    
     p '-----------------'
     p params[:user]
     p '--------------'
 
-
-    return render :json => {:user_id => user.id, :username => user.username} if user
-    return render :nothing => true, :status => 404
+    respond_to do |format|
+      format.html {render :nothing => true, :status => 404}
+      format.json {render :json => @user} if @user
+    end
   end
 
 
@@ -19,15 +21,12 @@ class UsersController < ApplicationController
 
   def do_login
     session[:user_id] = 0
-    user = User.check_login(params[:user])
-    session[:user_id] = user.id if user
+    @user = User.check_login(params[:user])
+    session[:user_id] = @user.id if @user
 
-
-    if is_from_android?
-      return render :json => {:user_id => user.id, :username => user.username} if user
-      return render :nothing => true, :status => 404
-    else
-      return render :text => session[:user_id]
+    respond_to do |format|
+      format.html {render :nothing => true, :status => 404}
+      format.json {render :json => @user} if @user
     end
 
   end

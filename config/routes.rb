@@ -5,5 +5,10 @@ SpanishTalkServer::Application.routes.draw do
     end
   end
 
-  resources :questions
+  resources :questions do
+    collection do
+      get :my
+    end
+  end
+
 end
