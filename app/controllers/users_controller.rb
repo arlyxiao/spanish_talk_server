@@ -2,13 +2,13 @@ class UsersController < ApplicationController
 
   def create
     user = User.create(params[:user])
-
+    session[:user_id] = user.id if user
     p '-----------------'
     p params[:user]
     p '--------------'
 
 
-    return render :json => {:user_id => user.id, :username => user.username} if user.id
+    return render :json => {:user_id => user.id, :username => user.username} if user
     return render :nothing => true, :status => 404
   end
 
