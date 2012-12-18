@@ -7,11 +7,13 @@ class QuestionsController < ApplicationController
   end
 
   def index
-    @questions = Question.all
+    @questions = Question.paginate(:page => params[:page], :per_page => 10)
 
     respond_to do |format|
       format.html {render :nothing => true, :status => 404}
-      format.json {render :json => @questions} if @questions.any?
+      if @questions.any?
+        format.json {render :json => {:questions => @questions, :total => Question.find(:all).count}}
+      end
     end
   end
 
@@ -41,11 +43,19 @@ class QuestionsController < ApplicationController
   end
 
   def my
-    @questions = current_user.questions
+    @questions = current_user.questions.paginate(:page => params[:page], :per_page => 10)
+    @total = current_user.questions.count
+
+    p 11111
+    p @total
+    p 22222
 
     respond_to do |format|
       format.html {render :nothing => true, :status => 404}
-      format.json {render :json => @questions} if @questions.any?
+
+      if @questions.any?
+        format.json {render :json => {:questions => @questions, :total => @total}}
+      end
     end
 
   end
