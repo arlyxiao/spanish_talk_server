@@ -8,11 +8,16 @@ class QuestionsController < ApplicationController
 
   def index
     @questions = Question.paginate(:page => params[:page], :per_page => 10)
+    @total = Question.count
 
     respond_to do |format|
       format.html {render :nothing => true, :status => 404}
-      if @questions.any?
-        format.json {render :json => {:questions => @questions, :total => Question.find(:all).count}}
+      if !@questions.nil?
+        @questions = @questions.map { |q| q.hash_in_android }
+
+        p @questions
+        p 2222222
+        format.json {render :json => {:questions => @questions, :total => @total}}
       end
     end
   end
@@ -37,7 +42,7 @@ class QuestionsController < ApplicationController
   def show
     respond_to do |format|
       format.html {render :nothing => true, :status => 404}
-      format.json {render :json => @question} if @question
+      format.json {render :json => @question.hash_in_android} if @question
     end
 
   end

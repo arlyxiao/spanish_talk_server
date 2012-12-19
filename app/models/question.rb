@@ -3,6 +3,22 @@ class Question < ActiveRecord::Base
 
   default_scope order('id DESC')
 
+
+  def hash_in_android
+    return {
+      :id         => self.id,
+      :title      => self.title,
+      :content    => self.content,
+      
+      :creator => {
+        :id => self.creator.id,
+        :username => self.creator.username
+      },
+      :created_at => self.created_at
+    }
+
+  end
+
   module UserMethods
     def self.included(base)
       base.has_many :questions, :class_name => 'Question', :foreign_key => :creator_id
