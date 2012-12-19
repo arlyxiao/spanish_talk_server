@@ -2,16 +2,20 @@ class UsersController < ApplicationController
 
   def create
     @user = User.create(params[:user])
-    session[:user_id] = @user.id if @user
+    session[:user_id] = @user.id if @user.id.nil?
     
     p '-----------------'
     p params[:user]
     p '--------------'
 
+
+    p @user
+
     respond_to do |format|
       format.html {render :nothing => true, :status => 404}
-      format.json {render :json => @user} if @user
-    end
+      format.json {render :json => @user} if !@user.id.nil?
+      format.json {render :nothing => true, :status => 404} if @user.id.nil?
+     end
   end
 
 
@@ -24,9 +28,12 @@ class UsersController < ApplicationController
     @user = User.check_login(params[:user])
     session[:user_id] = @user.id if @user
 
+    p @user
+
     respond_to do |format|
       format.html {render :nothing => true, :status => 404}
       format.json {render :json => @user} if @user
+      format.json {render :nothing => true, :status => 404} if !@user
     end
 
   end
