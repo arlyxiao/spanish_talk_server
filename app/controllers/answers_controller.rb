@@ -1,5 +1,5 @@
 class AnswersController < ApplicationController
-  #before_filter :login_required
+  before_filter :login_required
   before_filter :pre_load
   
   def pre_load
