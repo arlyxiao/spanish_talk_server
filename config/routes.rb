@@ -6,6 +6,8 @@ SpanishTalkServer::Application.routes.draw do
   end
 
   resources :questions do
+    resources :answers
+
     collection do
       get :my
     end

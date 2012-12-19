@@ -1,0 +1,6 @@
+<%= form_for Answer.new, :url=>"/questions/53/answers" do |f| %>
+
+  <%= f.text_area(:content, :size => '50x10') %><br />
+
+  <%= f.submit %>
+<% end %>

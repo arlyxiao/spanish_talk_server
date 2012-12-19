@@ -24,4 +24,5 @@ class User < ActiveRecord::Base
 
 
   include Question::UserMethods
+  include Answer::UserMethods
 end

@@ -51,10 +51,6 @@ class QuestionsController < ApplicationController
     @questions = current_user.questions.paginate(:page => params[:page], :per_page => 10)
     @total = current_user.questions.count
 
-    p 11111
-    p @total
-    p 22222
-
     respond_to do |format|
       format.html {render :nothing => true, :status => 404}
 

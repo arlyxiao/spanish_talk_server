@@ -1,14 +1,12 @@
-class Question < ActiveRecord::Base
+class Answer < ActiveRecord::Base
   belongs_to :creator, :class_name => 'User', :foreign_key => :creator_id
-  has_many :answers, :class_name => 'Answer', :foreign_key => :question_id
+  belongs_to :question, :class_name => 'Question', :foreign_key => :question_id
 
   default_scope order('id DESC')
-
 
   def hash_in_android
     return {
       :id         => self.id,
-      :title      => self.title,
       :content    => self.content,
       
       :creator => {
@@ -22,7 +20,7 @@ class Question < ActiveRecord::Base
 
   module UserMethods
     def self.included(base)
-      base.has_many :questions, :class_name => 'Question', :foreign_key => :creator_id
+      base.has_many :answers, :class_name => 'Answer', :foreign_key => :creator_id
       base.send(:include, InstanceMethod)
     end
     
@@ -30,5 +28,4 @@ class Question < ActiveRecord::Base
       
     end
   end
-
 end
