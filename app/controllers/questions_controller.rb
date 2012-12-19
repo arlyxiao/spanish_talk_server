@@ -54,7 +54,8 @@ class QuestionsController < ApplicationController
     respond_to do |format|
       format.html {render :nothing => true, :status => 404}
 
-      if @questions.any?
+      if !@questions.nil?
+        @questions = @questions.map { |q| q.hash_in_android }
         format.json {render :json => {:questions => @questions, :total => @total}}
       end
     end
