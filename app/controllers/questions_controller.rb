@@ -15,8 +15,6 @@ class QuestionsController < ApplicationController
       if !@questions.nil?
         @questions = @questions.map { |q| q.hash_in_android }
 
-        p @questions
-        p 2222222
         format.json {render :json => {:questions => @questions, :total => @total}}
       end
     end
@@ -35,7 +33,8 @@ class QuestionsController < ApplicationController
 
     respond_to do |format|
       format.html {render :nothing => true, :status => 404}
-      format.json {render :json => {:question_id => @question.id}} if @question
+      format.json {render :json => {:question_id => @question.id}} if !@question.id.nil?
+      format.json {render :nothing => true, :status => 404} if @question.id.nil?
     end
   end
 

@@ -34,7 +34,8 @@ class AnswersController < ApplicationController
 
     respond_to do |format|
       format.html {render :nothing => true, :status => 404}
-      format.json {render :json => @answer.hash_in_android} if @answer
+      format.json {render :json => @answer.hash_in_android} if !@answer.id.nil?
+      format.json {render :nothing => true, :status => 404} if @answer.id.nil?
     end
   end
 end
