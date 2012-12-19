@@ -8,7 +8,9 @@ class AnswersController < ApplicationController
   end
 
   def index
-    @answers = Answer.all
+    @answers = @question.answers
+
+    p @answers
 
     respond_to do |format|
       format.html {render :nothing => true, :status => 404}
