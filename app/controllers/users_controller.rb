@@ -2,7 +2,7 @@ class UsersController < ApplicationController
 
   def create
     @user = User.create(params[:user])
-    session[:user_id] = @user.id if @user.id.nil?
+    session[:user_id] = @user.id if !@user.id.nil?
     
     p '-----------------'
     p params[:user]
