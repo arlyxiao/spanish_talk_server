@@ -8,6 +8,9 @@ gem 'json'
 
 gem 'will_paginate', '~> 3.0'
 
+gem 'execjs'
+gem 'therubyracer', :platforms => :ruby
+
 
 
 # Gems used only for assets and not required
