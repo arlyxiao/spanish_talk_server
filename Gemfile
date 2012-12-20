@@ -8,7 +8,6 @@ gem 'json'
 
 gem 'will_paginate', '~> 3.0'
 
-#gem 'libv8', '~> 3.11.8'
 
 gem 'execjs'
 gem 'therubyracer', :platforms => :ruby
