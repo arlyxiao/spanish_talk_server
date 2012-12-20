@@ -15,6 +15,7 @@ class Question < ActiveRecord::Base
         :id => self.creator.id,
         :username => self.creator.username
       },
+      :answers => self.answers.map {|answer| answer.hash_in_android},
       :created_at => self.created_at
     }
 
