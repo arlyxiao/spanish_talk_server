@@ -38,4 +38,14 @@ class AnswersController < ApplicationController
       format.json {render :nothing => true, :status => 404} if @answer.id.nil?
     end
   end
+
+  def destroy
+    @answer.destroy if @answer.id
+
+    respond_to do |format|
+      format.html {render :nothing => true, :status => 404}
+      format.json {render :nothing => true, :status => 200} if @answer.destroyed?
+      format.json {render :nothing => true, :status => 404} if !@answer.destroyed?
+    end
+  end
 end

@@ -16,4 +16,6 @@ SpanishTalkServer::Application.routes.draw do
     end
   end
 
+  resources :answers
+
 end
