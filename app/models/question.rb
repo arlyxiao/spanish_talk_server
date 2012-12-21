@@ -9,6 +9,7 @@ class Question < ActiveRecord::Base
   def hash_in_android
     return {
       :id         => self.id,
+      :creator_id => self.creator_id,
       :title      => self.title,
       :content    => self.content,
       
