@@ -1,6 +1,7 @@
 class Question < ActiveRecord::Base
   belongs_to :creator, :class_name => 'User', :foreign_key => :creator_id
-  has_many :answers, :class_name => 'Answer', :foreign_key => :question_id
+  has_many :answers, :class_name => 'Answer', :foreign_key => :question_id, :dependent => :destroy
+
 
   default_scope order('id DESC')
 

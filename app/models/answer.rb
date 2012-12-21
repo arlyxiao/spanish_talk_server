@@ -7,6 +7,8 @@ class Answer < ActiveRecord::Base
   def hash_in_android
     return {
       :id         => self.id,
+      :creator_id => self.creator_id,
+
       :content    => self.content,
       
       :creator => {

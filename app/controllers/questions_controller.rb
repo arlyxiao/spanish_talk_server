@@ -60,4 +60,17 @@ class QuestionsController < ApplicationController
     end
 
   end
+
+
+
+  def destroy
+    @question.destroy if @question.id
+
+    respond_to do |format|
+      format.html {render :nothing => true, :status => 404}
+      format.json {render :nothing => true, :status => 200} if @question.destroyed?
+      format.json {render :nothing => true, :status => 404} if !@question.destroyed?
+    end
+  end
+    
 end
