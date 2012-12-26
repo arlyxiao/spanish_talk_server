@@ -11,7 +11,7 @@ module LoadSpanishTalk
 
   def login_required
     if current_user.nil?
-      return render :text => 'Access denied', :status => 404
+      return render :text => 'Access denied', :status => 401
     end
   end
   
